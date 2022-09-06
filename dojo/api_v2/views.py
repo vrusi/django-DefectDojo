@@ -1813,8 +1813,7 @@ class TestImportViewSet(prefetch.PrefetchListMixin,
 
 
 # Authorization: configurations
-class ToolConfigurationsViewSet(dojo_mixins.TestConnectionMixin,
-                                mixins.ListModelMixin,
+class ToolConfigurationsViewSet(mixins.ListModelMixin,
                                 mixins.RetrieveModelMixin,
                                 mixins.CreateModelMixin,
                                 mixins.UpdateModelMixin,

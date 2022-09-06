@@ -1042,7 +1042,23 @@ class Tool_Configuration(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        from dojo.tool_config.factory import create_API
+        api = create_API(self)
+        if api and hasattr(api, 'test_connection'):
+            try:
+                super().clean()
+                api.test_connection()
+            except Exception as e:
+                raise ValueError('Unable to connect to the provided url: ' + self.url)
 
+    def save(self, *args, **kwargs):
+        try:
+            self.full_clean()
+            return super(Tool_Configuration, self).save(*args, **kwargs)
+        except ValueError as e:
+            raise Exception(e)
 
 class Product_API_Scan_Configuration(models.Model):
     product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)

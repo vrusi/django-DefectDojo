@@ -792,6 +792,15 @@ class ToolConfigurationSerializer(serializers.ModelSerializer):
             'api_key': {'write_only': True},
         }
 
+    """ def create(self, validated_data):
+        tool_configuration_object = super(ToolConfigurationSerializer, self).create(validated_data)
+        tool_configuration_object.clean()
+        return tool_configuration_object
+
+    def update(self, instance, validated_data):
+        tool_configuration_object = super(ToolConfigurationSerializer, self).update(instance, validated_data)
+        tool_configuration_object.clean()
+        return tool_configuration_object """
 
 class ToolProductSettingsSerializer(serializers.ModelSerializer):
     setting_url = serializers.CharField(source='url')
